@@ -14,7 +14,7 @@ Valid8r for PHP really only has one file you need.  If you don't care about
 testing, examples, etc, you can simply grab the `Valid8r.php` file from the
 `lib/Valid8r` folder: 
 
-https://githb.com/thomporter/valid8r_php/lib/Valid8r/Valid8r.php
+https://raw.github.com/thomporter/valid8r_php/master/lib/Valid8r/Valid8r.php
 
 Alternatively, you can clone this rep and get examples & tests.
 
