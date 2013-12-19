@@ -18,6 +18,14 @@ https://githb.com/thomporter/valid8r_php/lib/Valid8r/Valid8r.php
 
 Alternatively, you can clone this rep and get examples & tests.
 
+You can also install via Composer:
+
+	{
+	  "require": {
+	    "valid8r/valid8r_php": "v0.0.2"
+	  }
+	}
+	
 ## Examples
 
 Get the Examples folder running on an PHP enabled web server and you 
