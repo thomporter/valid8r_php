@@ -12,5 +12,8 @@
 			"Valid8r\\Valid8r": "lib/"
 		}
 	},
+	"require":{
+		"php": ">=5.3.0"
+	},
 	"license": "MIT"
 }
