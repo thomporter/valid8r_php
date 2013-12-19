@@ -1,0 +1,21 @@
+{
+	"name": "valid8r_php",
+	"description": "PHP version of the Valid8r library",
+	"version": "1.0.0",
+	"keywords": ["validation"],
+	"homepage": "http://thomporter.com/valid8r",
+	"author": "Thom Porter",
+	"repository": {
+		"type": "git",
+		"url" : "https://github.com/thomporter/valid8r_php"
+	},
+	"bugs": {
+		"url": "https://github.com/thomporter/valid8r_php/issues"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/thomporter/valid8r_php/MIT-LICENSE"
+		}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"name": "valid8r/valid8r_php",
+	"description":"Validation library supporting multiple programming languages",
+	"keywords": ["validation"],
+	"homepage": "http://thomporter.com/valid8r",
+	"author": "Thom Porter",
+	"support": {
+		"issues":"https://github.com/thomporter/valid8r_php/issues"
+	},
+	"autoload": {
+		"psr-0": {
+			"Valid8r\\Valid8r": "lib/"
+		}
+	},
+	"license": "MIT"
+}
