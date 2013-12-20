@@ -22,7 +22,7 @@ You can also install via Composer:
 
 	{
 	  "require": {
-	    "valid8r/valid8r_php": "v0.0.2"
+	    "valid8r/valid8r_php": ">=v0.0.3"
 	  }
 	}
 	
@@ -34,10 +34,11 @@ can check out the Kitchen Sink examples.
 Here's a quick idea of how it works in PHP:
 
 	<?php
-	$validator = new Valid8r();
-	$validator->setRules($rules);
-	$validator->setData($_POST);
-	$errors = $validator->validate();
+	$validator = new Valid8r(Array(
+		'rules_file' => '/path/to/your/rules.json',
+		'data' => $_POST // assumed to be slash-free
+	));
+	$errors = $validator->validateAll();
 	// errors is now an associative array, where the keys are fields with 
 	// errors, and values are the errors themselves.  
 	// Fields with no errors are not in the array.
