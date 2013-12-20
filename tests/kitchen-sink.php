@@ -1,6 +1,6 @@
 <?php
 define('BASE_PATH', realpath(__DIR__.'/..'));
-require_once 'dist/Valid8r/Valid8r.php';
+require_once 'lib/Valid8r/Valid8r.php';
 
 class Valid8rStringsTest extends PHPUnit_Framework_TestCase {
 
