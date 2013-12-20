@@ -24,9 +24,12 @@ function customValidatorFunction($field, $value) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-	$v = new Valid8r();
+	$v = new Valid8r(Array(
+		// TODO: change this to use a function that strips slashes when necessary...
+		'data' => $_POST 
+	));
 	$v->setRulesFromFile($validatorFile);
-	$errors = $v->validateFields($_POST);
+	$errors = $v->validateAll();
 	$success = empty($errors);
 }
 ?>

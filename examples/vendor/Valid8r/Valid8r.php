@@ -63,7 +63,13 @@ class Valid8r {
 			$this->rules = $options['rules'];
 			$options['rules'] = null;
 		}
-
+		
+		if (!empty($options['fields']))
+		{
+			$this->rules = $options['fields'];
+			$options['fields'] = null;
+		}
+		
 		$this->options = $options + $default_options;
 
 	}
@@ -94,7 +100,7 @@ class Valid8r {
 	}
 
 	/**
-	 * Validate form data
+	 * Set & Validate Data
 	 * @param Array $fields Associative array of the fields
 	 * @return Array Array of errors
 	 */
@@ -106,12 +112,20 @@ class Valid8r {
 				$results[$field] = $err;
 			}
 		}
-//		foreach($fields as $k=>$v)
-//		{
-//			if ($err = $this->validate($k, $v)) {
-//				$results[$k] = $err;
-//			}
-//		}
+		return $results;
+	}
+
+	/**
+	 * Validate Data already passed to Valid8r (like via constructor options.)
+	 * @return Array Array of errors
+	 */
+	public function validateAll() {
+		$results = Array();
+		foreach($this->rules as $field=>$options) {
+			if ($err = $this->validate($field, @$this->fields[$field])) {
+				$results[$field] = $err;
+			}
+		}
 		return $results;
 	}
 
