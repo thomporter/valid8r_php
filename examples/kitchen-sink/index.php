@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$v = new Valid8r(Array(
 		// TODO: change this to use a function that strips slashes when necessary...
-		'data' => $_POST 
+		'data' => $_POST,
+		'rules_file' => $validatorFile
 	));
-	$v->setRulesFromFile($validatorFile);
 	$errors = $v->validateAll();
 	$success = empty($errors);
 }

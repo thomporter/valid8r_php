@@ -70,6 +70,11 @@ class Valid8r {
 			$options['fields'] = null;
 		}
 		
+		if (!empty($options['rules_file'])) {
+			$this->setRulesFromFile($options['rules_file']);
+			$options['rules_file'] = null;
+		}
+		
 		$this->options = $options + $default_options;
 
 	}
