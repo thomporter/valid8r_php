@@ -1,8 +1,8 @@
 {
 	"name": "valid8r_php",
 	"description": "PHP version of the Valid8r library",
-	"version": "1.0.0",
-	"keywords": ["validation"],
+	"version": "0.0.4",
+	"keywords": ["validation","validate","form validation"],
 	"homepage": "http://thomporter.com/valid8r",
 	"author": "Thom Porter",
 	"repository": {

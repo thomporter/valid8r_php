@@ -2,7 +2,7 @@
 	"name": "valid8r/valid8r_php",
 	"type": "library",
 	"description":"Validation library supporting multiple programming languages",
-	"keywords": ["validation"],
+	"keywords": ["validation","validate","form validation"],
 	"homepage": "http://thomporter.com/valid8r",
 	"author": "Thom Porter",
 	"support": {
