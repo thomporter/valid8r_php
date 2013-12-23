@@ -66,7 +66,7 @@ class Valid8r {
 		
 		if (!empty($options['fields']))
 		{
-			$this->rules = $options['fields'];
+			$this->fields = $options['fields'];
 			$options['fields'] = null;
 		}
 		
