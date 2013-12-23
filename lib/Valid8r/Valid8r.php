@@ -287,7 +287,7 @@ class Valid8r {
 
 	public function validRegex($field, $value, $rule) {
 		if ($value != '') {
-			if (!preg_match('#'.$rule->pattern.'#'.$rule->modifiers, $value)) {
+			if (!preg_match('#'.$rule->pattern.'#'.@$rule->modifiers, $value)) {
 				return $this->errStr($field, $rule, 'Does not match required pattern: ' . $rule->pattern);
 			}
 		}
