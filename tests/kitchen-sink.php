@@ -75,7 +75,12 @@ class Valid8rStringsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEmpty($err);
 	}
 	
-	
-	
+	public function testIP() {
+		$this->assertNotEmpty($this->validator->validate('ip','256.256.256.256'));
+		$this->assertNotEmpty($this->validator->validate('ip','xe80::219:7eff:fe46:6c42'));
+		$this->assertEmpty($this->validator->validate('ip','10.10.10.10'));
+		$this->assertEmpty($this->validator->validate('ip','fe80::219:7eff:fe46:6c42'));
+		
+	}
 	
 }
