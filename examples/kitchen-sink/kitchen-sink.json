@@ -157,6 +157,21 @@
 			{"rule":"url","noProtocols": true}
 		]
 	},
+	"ip":{
+		"rules": [
+			{"rule":"ip"}
+		]
+	},
+	"ipv4":{
+		"rules": [
+			{"rule":"ip","v":4}
+		]
+	},
+	"ipv6":{
+		"rules": [
+			{"rule":"ip","v":6}
+		]
+	},
 	"checkboxes_min_3" : {
 		"selector": "input[name=\"checkboxes_min_3[]\"]",
 		"type":"checks",

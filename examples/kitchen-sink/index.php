@@ -283,6 +283,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 					</div>
 				</div>
 			</div>
+			<div class="form-group row<?php if (@$errors['ip']) { ?> has-error<? } ?>">
+				<div class="col-md-6">
+					<label for="val_outside" class="col-sm-3 control-label">IP Address</label>
+					<div class="col-sm-9">
+						<input type="text" id="ip" name="ip" class="form-control" value="<?php echo @$_POST['ip']?>" />
+						<?php if (@$errors['ip']) { ?><span class="help-block"><?php echo $errors['ip']?></span><?php } ?>
+						<div class="rule">{"rule":"ip"}</div>
+					</div>
+				</div>
+				<div class="col-md-6">Validate an IP address - any version.</div>
+			</div>
+			<div class="form-group row<?php if (@$errors['ipv4']) { ?> has-error<? } ?>">
+				<div class="col-md-6">
+					<label for="val_outside" class="col-sm-3 control-label">IPv4</label>
+					<div class="col-sm-9">
+						<input type="text" id="ipv4" name="ipv4" class="form-control" value="<?php echo @$_POST['ipv4']?>" />
+						<?php if (@$errors['ipv4']) { ?><span class="help-block"><?php echo $errors['ipv4']?></span><?php } ?>
+						<div class="rule">{"rule":"ip", "v":4}</div>
+					</div>
+				</div>
+				<div class="col-md-6">Validate an IPv4 address.</div>
+			</div>
+			<div class="form-group row<?php if (@$errors['ipv6']) { ?> has-error<? } ?>">
+				<div class="col-md-6">
+					<label for="val_outside" class="col-sm-3 control-label">IPv6</label>
+					<div class="col-sm-9">
+						<input type="text" id="ipv6" name="ipv6" class="form-control" value="<?php echo @$_POST['ipv6']?>" />
+						<?php if (@$errors['ipv6']) { ?><span class="help-block"><?php echo $errors['ipv6']?></span><?php } ?>
+						<div class="rule">{"rule":"ip", "v":4}</div>
+					</div>
+				</div>
+				<div class="col-md-6">Validate an IPv6 address.</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-md-6">
 					<input type="submit" value="Submit" class="pull-right btn btn-primary">
