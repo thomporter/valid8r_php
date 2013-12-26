@@ -38,6 +38,8 @@ class Valid8r {
 		'email_simple' => '#^[^@]+@[a-z0-9_-]+\.[a-z0-9_.-]{2,}$#',
 		'email_default' => '#^[a-z0-9!\\#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!\\#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$#i',
 		'email_rfc5322' => '#(?:[a-z0-9!\\#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!\\#$%&\'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])#',
+		'ipv4' => '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
+        'ipv6' => '/^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/',
 	);
 
 	/**
@@ -175,6 +177,7 @@ class Valid8r {
 					case "checks": $err = $this->validChecks($field, $value, $rule); break;
 					case "radios": $err = $this->validRadios($field, $value, $rule); break;
 					case "custom": $err = $this->validCustom($field, $value, $rule); break;
+					case "ip": $err = $this->validIp($field, $value, $rule); break;
 					default: $err = "Invalid rule: $rule->rule"; break;
 				}
 				if ($err) return $err;
@@ -330,6 +333,20 @@ class Valid8r {
 			if (!preg_match(self::$res['email_'.$em_re], $value)) 
 				return $this->errStr($field, $rule, 'Please enter a valid email address.');
 			
+		}
+		return '';
+	}
+	
+	public function validIp($field, $value, $rule) {
+		if ($value != '') {
+			if (@$rule->v) {
+				if (empty(self::$res['ipv'.$rule->v]))
+					return 'INVALID IP VALIDATOR: ' . $rule->v;
+				if (!preg_match(self::$res['ipv'.$rule->v], $value))
+					return $this->errStr($field, $rule, 'Invalid IPv'.$rule->v.' Address');
+			} elseif (!preg_match(self::$res['ipv4'], $value) && !preg_match(self::$res['ipv6'], $value)) {
+				return $this->errStr($field, $rule, 'Invalid IP Address');
+			}
 		}
 		return '';
 	}
