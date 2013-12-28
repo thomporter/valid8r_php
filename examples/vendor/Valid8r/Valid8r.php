@@ -43,9 +43,14 @@ class Valid8r {
 	);
 
 	/**
-	 * @var Array of rules
+	 * @var Object of rules
 	 */
 	private $rules = null;
+
+	/**
+	 * @var Object of conditions
+	 */
+	private $globalConditions = null;
 	
 	/**
 	 * @var Array (associative) of data being validated - must include data for conditions.
@@ -62,7 +67,7 @@ class Valid8r {
 
 		if (!empty($options['rules']))
 		{
-			$this->rules = $options['rules'];
+			$this->setRules($options['rules']);
 			$options['rules'] = null;
 		}
 		
@@ -88,10 +93,19 @@ class Valid8r {
 
 	/**
 	 * Set the rules for the validator to use.
-	 * @param Array $rules
+	 * @param Object $rules
 	 */
-	public function setRules($rules) {
-		$this->rules = $rules;
+	public function setRules($rules)
+	{
+		if (!empty($rules->_rules))
+		{
+			$this->rules = $rules->_rules;
+			$this->globalConditions = $rules->_globalConditions ? $rules->_globalConditions : new \stdClass();
+
+		} else {
+			$this->rules = $rules;
+			$this->globalConditions = new \stdClass();
+		}
 	}
 
 	/**
@@ -99,7 +113,7 @@ class Valid8r {
 	 * @param String $file
 	 */
 	public function setRulesFromFile($file) {
-		$this->rules = json_decode(file_get_contents($file));
+		$this->setRules(json_decode(file_get_contents($file)));
 		
 	}
 	/**
@@ -161,7 +175,7 @@ class Valid8r {
 		
 		if (!empty($this->rules->$field->rules)) {
 			foreach((array)$this->rules->$field->rules as $sel=>$rule) {
-				if (@$rule->when && !$this->satisfiesCondition($this->rules->$field->conditions->{$rule->when}, $rule)) continue;
+				if (@$rule->when && !$this->satisfiesCondition(@$this->rules->$field->conditions->{$rule->when}, $rule)) continue;
 				switch($rule->rule) {
 					case 'required': $err = $this->validRequired($field, $value, $rule); break;
 					case 'len': $err = $this->validLen($field, $value, $rule); break;
@@ -186,6 +200,11 @@ class Valid8r {
 	}
 	
 	public function satisfiesCondition($condition, $rule) {
+		
+		if (!$condition) {
+			$condition = $this->globalConditions->{$rule->when};
+		}
+		
 		$value = @$this->fields[$condition->field];
 		return ($condition->is == $value); 
 		
